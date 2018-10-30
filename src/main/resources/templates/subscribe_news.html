@@ -74,6 +74,7 @@
                         var article = news[j].article;
                         var site = news[j].site;
                         var _id = news[j]._id;
+                        var url = news[j].url;
                        html += " <li>\n" +
                            "            <div class=\"left\"><img src=\""+image[0]+"\" alt=\"\"></div>\n" +
                            "            <div class=\"right\">\n" +
@@ -85,7 +86,7 @@
                            "                </div>\n" +
                            "                <div class=\"right_bottom\">\n" +
                            "                    <div class=\"right_bottom_left\">\n" +
-                           "                        <span>来源网站："+site+"</span><span>|</span> <span>发布时间:</span><span>"+time+"</span>\n" +
+                           "                        <span>来源网站："+site+"</span><span>|</span> <span>发布时间:</span><span>"+time+"</span><span>"+"<a href='"+url+"'>阅读原文</a>"+"</span>\n" +
                            "                    </div>\n" +
                            "                </div>\n" +
                            "            </div>\n" +
