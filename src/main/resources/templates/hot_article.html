@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>热门资讯</title>
+    <style>
+        .content ul li img:hover{
+            transform: scale(1.2);/*当鼠标移动到图片上时实现放大功能*/
+        }
+        .content ul li{
+            height: 250px;
+            overflow: hidden;
+            border-bottom: 1px solid lavender;
+            background: white;
+            list-style-type: none;
+            transition-duration: 0.5s;
+            margin: 10px 10px 5px 0;
+
+        }
+        .content ul li:hover{
+            background-color: lavender;
+            transition-duration: 0.5s;
+        }
+        .content .left{
+            overflow: hidden;/*隐藏溢出图片内容*/
+            transition-duration: 0.5s;
+            width: 240px;
+            height:240px;
+            /*background: green;*/
+            float: left;
+            margin-right:20px;
+        }
+        .content .right{
+            width:400px ;
+            float: left;
+        }
+        .right_top{
+            height:60px;
+        }
+        .right_summary{
+            height:130px;
+        }
+        .right_bottom{
+            margin_top:50px;
+        }
+        .right_bottom_left span{
+            color: darkgray;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<script src="js/jquery.min.js"></script>
+<script>
+    $(function () {
+        chooseCategory();
+    });
+    function chooseCategory() {
+        var category = $("#newsCategory  option:selected").text();
+        $.ajax({
+            url: "/recommender/hot_article",
+            type: "post",
+            data: {field: category},
+            success: function (data) {
+                data = JSON.parse(data);
+                var html = "";
+               if (data.code == "0"){
+                   var news = data.data;
+                   for(var j = 0; j < news.length; j++) {
+                        var title = news[j].title;
+                        var time = news[j].time;
+                        var summary = news[j].summary;
+                        var image = news[j].image;
+                        var article = news[j].article;
+                        var site = news[j].site;
+                        var _id = news[j]._id;
+                       html += " <li>\n" +
+                           "            <div class=\"left\"><img src=\""+image[0]+"\" alt=\"\"></div>\n" +
+                           "            <div class=\"right\">\n" +
+                           "                <div class=\"right_top\">\n" +
+                           "                    <h3>"+ title+ "</h3>\n" +
+                           "                </div>\n" +
+                           "                <div class=\"right_summary\">\n" +
+                           "                    <div>"+ summary+ "</div>\n" +
+                           "                </div>\n" +
+                           "                <div class=\"right_bottom\">\n" +
+                           "                    <div class=\"right_bottom_left\">\n" +
+                           "                        <span>来源网站："+site+"</span><span>|</span> <span>发布时间:</span><span>"+time+"</span>\n" +
+                           "                    </div>\n" +
+                           "                </div>\n" +
+                           "            </div>\n" +
+                           "        </li>";
+                   }
+                   $("#content ul").html(html);
+               } else{
+                   alert("数据加载失败")
+               }
+
+            }
+        });
+    }
+
+</script>
+<body>
+<h1>热门资讯</h1>
+新闻类别：<select id="newsCategory" onchange="chooseCategory()">
+    <option>体育</option>
+    <option>财经</option>
+    <option>科技</option>
+</select>
+<div class="content" id="content">
+    <ul>
+
+
+    </ul>
+</div>
+<!--<button id="test" onclick="test()">测试</button>-->
+</body>
+</html>
