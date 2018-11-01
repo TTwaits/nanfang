@@ -66,33 +66,38 @@
                 var html = "";
                if (data.code == "0"){
                    var news = data.data;
-                   for(var j = 0; j < news.length; j++) {
-                        var title = news[j].title;
-                        var time = news[j].time;
-                        var summary = news[j].summary;
-                        var image = news[j].image;
-                        var article = news[j].article;
-                        var site = news[j].site;
-                        var _id = news[j]._id;
-                        var url = news[j].url;
-                       html += " <li>\n" +
-                           "            <div class=\"left\"><img src=\""+image[0]+"\" alt=\"\"></div>\n" +
-                           "            <div class=\"right\">\n" +
-                           "                <div class=\"right_top\">\n" +
-                           "                    <h3>"+ title+ "</h3>\n" +
-                           "                </div>\n" +
-                           "                <div class=\"right_summary\">\n" +
-                           "                    <div>"+ summary+ "</div>\n" +
-                           "                </div>\n" +
-                           "                <div class=\"right_bottom\">\n" +
-                           "                    <div class=\"right_bottom_left\">\n" +
-                           "                        <span>来源网站："+site+"</span><span>|</span> <span>发布时间:</span><span>"+time+"</span><span>"+"<a href='"+url+"'>阅读原文</a>"+"</span>\n" +
-                           "                    </div>\n" +
-                           "                </div>\n" +
-                           "            </div>\n" +
-                           "        </li>";
+                   if (news.length>0){
+                       for(var j = 0; j < news.length; j++) {
+                           var title = news[j].title;
+                           var time = news[j].time;
+                           var summary = news[j].summary;
+                           var image = news[j].image;
+                           var article = news[j].article;
+                           var site = news[j].site;
+                           var _id = news[j]._id;
+                           var url = news[j].url;
+                           html += " <li>\n" +
+                               "            <div class=\"left\"><img src=\""+image[0]+"\" alt=\"\"></div>\n" +
+                               "            <div class=\"right\">\n" +
+                               "                <div class=\"right_top\">\n" +
+                               "                    <h3>"+ title+ "</h3>\n" +
+                               "                </div>\n" +
+                               "                <div class=\"right_summary\">\n" +
+                               "                    <div>"+ summary+ "</div>\n" +
+                               "                </div>\n" +
+                               "                <div class=\"right_bottom\">\n" +
+                               "                    <div class=\"right_bottom_left\">\n" +
+                               "                        <span>来源网站："+site+"</span><span>|</span> <span>发布时间:</span><span>"+time+"</span><span>"+"<a href='"+url+"'>阅读原文</a>"+"</span>\n" +
+                               "                    </div>\n" +
+                               "                </div>\n" +
+                               "            </div>\n" +
+                               "        </li>";
+                       }
+                       $("#content ul").html(html);
+                   }else {
+                       alert("无该关键词的最新数据")
                    }
-                   $("#content ul").html(html);
+
                } else{
                    alert("数据加载失败")
                }
